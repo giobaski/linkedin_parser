@@ -7,7 +7,7 @@ from time import sleep
 from data import persons
 import json, random, os
 from pymongo.mongo_client import MongoClient
-import fake_credentials
+
 
 base_dir = os.getcwd()
 # logout = 'https://www.linkedin.com/uas/login/m/logout'
