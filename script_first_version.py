@@ -7,23 +7,34 @@ from time import sleep
 from data import persons
 import json, random, os
 from pymongo.mongo_client import MongoClient
+from selenium.webdriver.chrome.options import Options
 
 
 base_dir = os.getcwd()
 # logout = 'https://www.linkedin.com/uas/login/m/logout'
 
 
+# configure web browser
+chrome_option = Options()
+chrome_option.add_argument('--proxy-server=223.205.99.64:8080')
+# chrome_option.add_argument('headless=True')
+# chrome_option.add_argument('user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36"')
+
+
 """ შევქმნათ ვებბრაუზერის ობიექტი და დავუკავშირდეთ ჩვენთვის საჭირო ლინკს """
-driver = webdriver.Chrome(os.path.join(base_dir, 'chromedriver'))
+driver = webdriver.Chrome(options=chrome_option)
 driver.get('https://www.linkedin.com/uas/login')
+
+
+# driver.delete_all_cookies()
 
 
 def login(username, password):
     """ აუთენთიფიკაციის ფუნქცია """
     user = driver.find_element_by_name('session_key').send_keys(username)
-    sleep(1)
+    sleep(200)
     password = driver.find_element_by_name('session_password').send_keys(password)
-    sleep(1)
+    sleep(10)
     log_in_button = driver.find_element_by_class_name('btn__primary--large').click()
     print('you are logged in successfully')
 
